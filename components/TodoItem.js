@@ -7,9 +7,23 @@ export function TodoItem({ task }){
     
     const handleDelete = async (id) => {
         try {
-            await fetch('http://localhost:3000/api/tasks',{
+            await fetch(`http://localhost:3000/api/tasks/${id}`,{
                 method: 'DELETE',
-                body: JSON.stringify({ id }),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            refreshData()
+        } catch(e) {
+            console.error(error);
+        }
+    }
+
+    const handleCompleted = async (id, completed) => {
+        try {
+            await fetch(`http://localhost:3000/api/tasks/${id}`,{
+                method: 'PUT',
+                body: JSON.stringify({ completed: !completed }),
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -32,7 +46,9 @@ export function TodoItem({ task }){
             className="bg-red-600 text-white p-2 hover:bg-white hover:text-red-600">
                 Excluir
             </button>
-            <button className="ml-5 bg-blue-600 text-white p-2 hover:bg-white hover:text-blue-600">
+            <button 
+             onClick={()=> handleCompleted(task.id, task.completed)}
+            className="ml-5 bg-blue-600 text-white p-2 hover:bg-white hover:text-blue-600">
                 {task.completed ? 'Concluido' : 'Não concluido'}
             </button>
             </div>

@@ -2,6 +2,7 @@ import Head from 'next/head';
 //import { prisma } from '../lib/prisma';
 import { Navbar } from '../components/Navbar';
 import { TodoList } from '../components/TodoList';
+import { TodoForm } from '../components/TodoForm';
 
 export default function Home({ tasks }) {
   return (
@@ -13,6 +14,7 @@ export default function Home({ tasks }) {
       </Head>
         <Navbar />
        <main className='border-b'>
+          <TodoForm />
           <TodoList tasks={tasks} />
        </main>
       </div>
